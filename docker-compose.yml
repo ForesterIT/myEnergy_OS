@@ -1,0 +1,44 @@
+version: '2.1'
+volumes:
+  poller-config:
+  poller-data:
+  wireguard-config:
+  apachefiles:
+  apacheconfig:
+  nut-config:
+services:
+  poller:
+    image: registry.gitlab.com/malharwood/registry1/poller_arm:latest
+    restart: always
+    volumes:
+     - 'poller-config:/etc/utilities.digital'
+     - 'poller-data:/data'
+  apache:
+    network_mode: host
+    restart: always
+    build: ./apache
+    privileged: true
+    ports:
+      - "8080:8080/udp"
+      - "8080:8080/tcp"
+    volumes:
+      - apachefiles:/var/www
+      - apacheconfig:/data/apache2
+      - wireguard-config:/etc/wireguard
+      - nut-config:/etc/nut
+  wireguard:
+    build: ./balena-wireguard
+    privileged: true
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - wireguard-config:/etc/wireguard
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    labels:
+      - io.balena.features.kernel-modules=1
+            
