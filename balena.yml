@@ -12,6 +12,12 @@ assets:
     data:
       url: >-
         https://raw.githubusercontent.com/MalHarwood/myEnergy_OS/master/logo.png
+build-variables:
+    global:
+        - MY_VAR_1=This is a variable
+    services:
+        poller:
+            - poller_VAR=This is a service specific variable
 data:
   applicationEnvironmentVariables:
     - SOUND_VOLUME: 75
