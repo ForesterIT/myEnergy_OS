@@ -1,0 +1,27 @@
+name: myEnergy_CM4_OS
+type: sw.application
+description: >-
+  Energy Monitor local collector
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/MalHarwood/myEnergy_OS'
+  logo:
+    type: blob.asset
+    data:
+      url: >-
+        https://raw.githubusercontent.com/MalHarwood/myEnergy_OS/master/logo.png
+data:
+  applicationEnvironmentVariables:
+    - SOUND_VOLUME: 75
+    - AUDIO_OUTPUT: AUTO
+  defaultDeviceType: raspberrypicm4-ioboard
+  supportedDeviceTypes:
+    - raspberrypi3
+    - raspberrypi3-64
+    - raspberrypi4-64
+    - raspberrypicm4-ioboard
+    - fincm3
+    - intel-nuc
+version: 1.0.0
